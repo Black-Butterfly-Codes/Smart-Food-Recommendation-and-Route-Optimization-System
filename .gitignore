@@ -1,0 +1,9 @@
+main.o
+password.o
+test.exe
+*.exe
+*.o
+smartbitepbl/bin/
+smartbitepbl/obj/
+smartbitepbl/*.depend
+smartbitepbl/*.layout
