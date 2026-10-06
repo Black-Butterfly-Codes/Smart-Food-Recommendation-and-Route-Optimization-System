@@ -38,6 +38,8 @@
 		</Compiler>
 		<Unit filename="../password.cpp" />
 		<Unit filename="../password.h" />
+		<Unit filename="data.cpp" />
+		<Unit filename="data.h" />
 		<Unit filename="main.cpp" />
 		<Extensions />
 	</Project>
