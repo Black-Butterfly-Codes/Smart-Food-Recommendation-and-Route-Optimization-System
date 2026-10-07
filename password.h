@@ -44,6 +44,6 @@ void displayPasswordStrength(const string& password);
 
 int chooseService();
 
-void runPasswordModule(vector<User>& users);
+int runPasswordModule(vector<User>& users);
 
 #endif

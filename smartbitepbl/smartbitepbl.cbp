@@ -36,11 +36,11 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="../main.cpp" />
 		<Unit filename="../password.cpp" />
 		<Unit filename="../password.h" />
 		<Unit filename="data.cpp" />
 		<Unit filename="data.h" />
-		<Unit filename="main.cpp" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

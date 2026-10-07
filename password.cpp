@@ -45,7 +45,9 @@ void User::setPassword(string password)
     this->password = password;
 }
 
-void runPasswordModule(vector<User>& users)
+
+
+int runPasswordModule(vector<User>& users)
 {
     int choice;
     bool loginSuccess = false;
@@ -69,13 +71,15 @@ void runPasswordModule(vector<User>& users)
     else
     {
         cout << "Invalid choice." << endl;
-        return;
+        return 0;
     }
 
     if (loginSuccess)
     {
-        chooseService();
+        return chooseService();
     }
+
+    return 0;
 }
 
 void registerUser(vector<User>& users)
