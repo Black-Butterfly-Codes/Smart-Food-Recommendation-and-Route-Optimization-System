@@ -1,9 +1,9 @@
-
 #ifndef GRAPH_H
 #define GRAPH_H
 
-#include "data.h"
 #include <vector>
+#include <utility>
+#include "data.h"
 
 using namespace std;
 
@@ -23,4 +23,5 @@ public:
 
     const vector<pair<int, double>>& getNeighbors(int locationId) const;
 };
+
 #endif
