@@ -2,7 +2,7 @@
 #include "password.h"
 #include "data.h"
 #include "dining.h"
-
+#include "graph.h"
 using namespace std;
 
 int main()

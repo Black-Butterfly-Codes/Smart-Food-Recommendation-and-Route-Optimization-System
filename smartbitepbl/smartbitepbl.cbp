@@ -36,6 +36,10 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="../dining.cpp" />
+		<Unit filename="../dining.h" />
+		<Unit filename="../graph.cpp" />
+		<Unit filename="../graph.h" />
 		<Unit filename="../main.cpp" />
 		<Unit filename="../password.cpp" />
 		<Unit filename="../password.h" />

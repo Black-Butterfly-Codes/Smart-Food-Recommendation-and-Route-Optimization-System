@@ -31,11 +31,10 @@ void Graph::buildFromRoads(const vector<Road>& roads)
 {
     for (const Road& road : roads)
     {
-        addEdge(
-            road.fromLocationId,
-            road.toLocationId,
-            road.distance
-        );
+        addEdge(road.fromLocationId, road.toLocationId, road.distance);
+
+
+        addEdge(road.toLocationId, road.fromLocationId, road.distance);
     }
 }
 
