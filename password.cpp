@@ -287,7 +287,7 @@ int chooseService()
     cout << "Enter your choice: ";
     cin >> choice;
 
-    if (choice >= 1 && choice <= 3)
+    if (choice >0 && choice <4)
     {
         return choice;
     }
