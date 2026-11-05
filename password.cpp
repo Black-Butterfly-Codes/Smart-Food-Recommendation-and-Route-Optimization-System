@@ -52,9 +52,9 @@ int runPasswordModule(vector<User>& users)
     int choice;
     bool loginSuccess = false;
 
-    cout << "===== REGISTRATION & PASSWORD =====" << endl;
-    cout << "1. New User" << endl;
-    cout << "2. Existing User" << endl;
+    cout << "==== REGISTRATION & PASSWORD ====" << endl;
+    cout << "1. New User"<< endl;
+    cout << "2. Existing User"<< endl;
     cout << "Enter your choice: ";
     cin >> choice;
 
