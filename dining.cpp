@@ -18,7 +18,7 @@ int selectDiningLocation()
     cout << "Enter your choice: ";
     cin >> choice;
 
-    if (choice >= 1 && choice <= 5)
+    if (choice >0 && choice <6)
     {
         return choice;
     }
