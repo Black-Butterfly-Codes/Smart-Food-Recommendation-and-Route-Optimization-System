@@ -7,3 +7,4 @@ smartbitepbl/bin/
 smartbitepbl/obj/
 smartbitepbl/*.depend
 smartbitepbl/*.layout
+data/users.txt
