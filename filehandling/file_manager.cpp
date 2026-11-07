@@ -91,8 +91,6 @@ namespace fm
 
         return line;
     }
-
-    // Separate one line into individual fields.
     vector<string> parseRecord(const string& line)
     {
         vector<string> fields;
@@ -120,8 +118,6 @@ namespace fm
 
         return fields;
     }
-
-    // Check whether a file exists.
     bool fileExists(const string& filePath)
     {
         ifstream file(filePath.c_str());
