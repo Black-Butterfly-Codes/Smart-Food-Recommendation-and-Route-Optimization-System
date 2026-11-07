@@ -84,13 +84,12 @@ double calculateDriveTime(double distance)
     return (distance / AVERAGE_SPEED) * 60.0;
 }
 
-// Calculate recommendation score
 double calculateDriveScore(
     const Restaurant& restaurant,
     double distance)
 {
     double distanceScore =
-        100.0 / (1.0 + distance);
+        100.00 / (1.0 + distance);
 
     double ratingScore =
         (restaurant.rating / 5.0) * 100.0;
