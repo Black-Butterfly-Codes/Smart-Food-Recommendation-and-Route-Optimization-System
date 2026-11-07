@@ -89,7 +89,7 @@ double calculateDriveScore(
     double distance)
 {
     double distanceScore =
-        100.00 / (1.0 + distance);
+        100.0 / (1.0 + distance);
 
     double ratingScore =
         (restaurant.rating / 5.0) * 100.0;
