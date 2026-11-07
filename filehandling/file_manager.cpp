@@ -8,7 +8,7 @@ using namespace std;
 
 namespace fm
 {
-    // Replace characters that could corrupt the record format.
+  
     static string sanitizeField(const string& field)
     {
         string clean = field;
