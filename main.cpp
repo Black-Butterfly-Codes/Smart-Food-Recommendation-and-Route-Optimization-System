@@ -1,16 +1,19 @@
 #include <iostream>
+#include <vector>
+
 #include "password.h"
 #include "data.h"
 #include "dining.h"
-#include "graph.h"
+#include "takeaway.h"
+#include "drive.h"
+
 using namespace std;
 
 int main()
 {
     vector<User> users;
 
-    int serviceChoice =
-        runPasswordModule(users);
+    int serviceChoice = runPasswordModule(users);
 
     if (serviceChoice == 1)
     {
@@ -18,11 +21,11 @@ int main()
     }
     else if (serviceChoice == 2)
     {
-        cout << "\nTakeaway module coming soon." << endl;
+        runTakeawayModule();
     }
     else if (serviceChoice == 3)
     {
-        cout << "\nDrive-through module coming soon." << endl;
+        runDriveModule();
     }
 
     return 0;

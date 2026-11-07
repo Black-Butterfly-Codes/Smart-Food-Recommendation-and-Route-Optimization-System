@@ -12,8 +12,8 @@ Graph::Graph(int numberOfLocations)
 void Graph::addEdge(int from, int to, double distance)
 {
     if (from < 0 || to < 0 ||
-        from >= adjacencyList.size() ||
-        to >= adjacencyList.size() ||
+        from >= static_cast<int>(adjacencyList.size()) ||
+     to >= static_cast<int>(adjacencyList.size()) ||
         distance < 0)
     {
         return;
@@ -43,8 +43,8 @@ double Graph::shortestDistance(int start, int destination) const
     const double INF = numeric_limits<double>::infinity();
 
     if (start < 0 || destination < 0 ||
-        start >= adjacencyList.size() ||
-        destination >= adjacencyList.size())
+       start >= static_cast<int>(adjacencyList.size()) ||
+destination >= static_cast<int>(adjacencyList.size()))
     {
         return INF;
     }

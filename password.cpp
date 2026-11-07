@@ -293,7 +293,6 @@ int chooseService()
     }
 
     cout << "Invalid choice." << endl;
-    
     return 0;
 }
 

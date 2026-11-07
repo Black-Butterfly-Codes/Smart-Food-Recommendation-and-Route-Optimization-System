@@ -22,7 +22,6 @@ public:
     string getPassword() const;
 
     void setName(string name);
-
     void setUsername(string username);
     void setPassword(string password);
 };

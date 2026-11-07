@@ -27,12 +27,20 @@ int selectDiningLocation()
     return 0;
 }
 
-vector<Restaurant> findDiningRestaurants(const vector<Restaurant>& restaurants,const vector<Menu>& menus,const vector<Dish>& dishes,int locationId,int cuisineId)
+vector<Restaurant> findDiningRestaurants(
+    const vector<Restaurant>& restaurants,
+    const vector<Menu>& menus,
+    const vector<Dish>& dishes,
+    int locationId,
+    int cuisineId)
 {
+    (void)locationId;
     vector<Restaurant> result;
 
     for (const Restaurant& restaurant : restaurants)
     {
+
+
         vector<Restaurant> cuisineRestaurants =
             findRestaurantsByCuisine(
                 vector<Restaurant>{restaurant},
@@ -115,7 +123,7 @@ int selectDiningRestaurant(const vector<Restaurant>& restaurants)
 
     cout << "\n===== SELECT RESTAURANT =====" << endl;
 
-    for (int i = 0; i < restaurants.size(); i++)
+    for (size_t i = 0; i < restaurants.size(); i++)
     {
         cout << i + 1 << ". "
              << restaurants[i].name << endl;
@@ -124,7 +132,7 @@ int selectDiningRestaurant(const vector<Restaurant>& restaurants)
     cout << "Enter your choice: ";
     cin >> choice;
 
-    if (choice >= 1 && choice <= restaurants.size())
+if (choice >= 1 && choice <= static_cast<int>(restaurants.size()))
     {
         return restaurants[choice - 1].id;
     }
@@ -220,10 +228,9 @@ vector<Restaurant> rankDiningRestaurants(
 {
     vector<Restaurant> rankedRestaurants = restaurants;
 
-    for (int i = 0; i < rankedRestaurants.size() - 1; i++)
+for (size_t i = 0; i + 1 < rankedRestaurants.size(); i++)
     {
-        int bestIndex = i;
-
+        size_t bestIndex = i;
         double bestDistance = calculateDiningDistance(
             graph,
             startLocationId,
@@ -233,7 +240,7 @@ vector<Restaurant> rankDiningRestaurants(
             bestDistance,
             rankedRestaurants[bestIndex].rating);
 
-        for (int j = i + 1; j < rankedRestaurants.size(); j++)
+       for (size_t j = i + 1; j < rankedRestaurants.size(); j++)
         {
             double distance = calculateDiningDistance(
                 graph,
@@ -276,14 +283,14 @@ void displayDiningRecommendations(
         return;
     }
 
-    int limit = restaurants.size();
+    size_t limit = restaurants.size();
 
     if (limit > 3)
     {
         limit = 3;
     }
 
-    for (int i = 0; i < limit; i++)
+   for (size_t i = 0; i < limit; i++)
     {
         double distance = calculateDiningDistance(
             graph,

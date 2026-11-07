@@ -38,11 +38,17 @@
 		</Compiler>
 		<Unit filename="../dining.cpp" />
 		<Unit filename="../dining.h" />
+		<Unit filename="../drive.cpp" />
+		<Unit filename="../drive.h" />
+		<Unit filename="../filehandling/file_manager.cpp" />
+		<Unit filename="../filehandling/file_manager.h" />
 		<Unit filename="../graph.cpp" />
 		<Unit filename="../graph.h" />
 		<Unit filename="../main.cpp" />
 		<Unit filename="../password.cpp" />
 		<Unit filename="../password.h" />
+		<Unit filename="../takeaway.cpp" />
+		<Unit filename="../takeaway.h" />
 		<Unit filename="data.cpp" />
 		<Unit filename="data.h" />
 		<Extensions />
