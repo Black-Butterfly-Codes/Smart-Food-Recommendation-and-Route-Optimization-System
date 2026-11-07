@@ -336,7 +336,15 @@ bool readAllRecords(
         return true;
     }
 
-    // Count the records in a file.
+     int countRecords(const string& filePath)
+    {
+        vector<string> records;
+
+        if (!readAllRecords(filePath, records))
+            return -1;
+
+        return static_cast<int>(records.size());
+    }
    
 
 }
