@@ -1,5 +1,5 @@
-#ifndef password_H
-#define password_H
+#ifndef PASSWORD_H
+#define PASSWORD_H
 
 #include <string>
 #include <vector>
@@ -26,24 +26,28 @@ public:
     void setPassword(string password);
 };
 
-bool usernameExists(const vector<User>& users, const string& username);
+bool loadUsers(vector<User>& users);
 
-void registerUser(vector<User>& users);
+bool usernameExists(
+    const vector<User>& users,
+    const string& username
+);
 
-bool loginUser(const vector<User>& users, string& loggedInUsername);
+bool registerUser(vector<User>& users);
+
+bool loginUser(
+    const vector<User>& users,
+    string& loggedInUsername
+);
 
 string generatePassword(int length);
-
 string createManualPassword();
-
 string createPassword();
-
 string checkPasswordStrength(const string& password);
 
 void displayPasswordStrength(const string& password);
 
 int chooseService();
-
 int runPasswordModule(vector<User>& users);
 
 #endif

@@ -1,9 +1,17 @@
 #include "password.h"
+#include "password_security.h"
+#include "filehandling/file_manager.h"
+
 #include <iostream>
 #include <cstdlib>
 #include <cctype>
 
 using namespace std;
+
+const string USER_FILE = "data/users.txt";
+
+// ================= USER CLASS =================
+
 User::User()
 {
 }
@@ -45,44 +53,58 @@ void User::setPassword(string password)
     this->password = password;
 }
 
+// ================= LOAD USERS =================
 
-
-int runPasswordModule(vector<User>& users)
+bool loadUsers(vector<User>& users)
 {
-    int choice;
-    bool loginSuccess = false;
+    users.clear();
 
-    cout << "==== REGISTRATION & PASSWORD ====" << endl;
-    cout << "1. New User"<< endl;
-    cout << "2. Existing User"<< endl;
-    cout << "Enter your choice: ";
-    cin >> choice;
-
-    if (choice == 1)
+    if (!fm::ensureFileExists(USER_FILE))
     {
-        registerUser(users);
-        loginSuccess = true;
-    }
-    else if (choice == 2)
-    {
-        string loggedInUsername;
-        loginSuccess = loginUser(users, loggedInUsername);
-    }
-    else
-    {
-        cout << "Invalid choice." << endl;
-        return 0;
+        cout << "Unable to create user data file." << endl;
+        return false;
     }
 
-    if (loginSuccess)
+    vector<string> records;
+
+    if (!fm::readAllRecords(USER_FILE, records))
     {
-        return chooseService();
+        cout << "Unable to load user accounts." << endl;
+        return false;
     }
 
-    return 0;
+    for (const string& record : records)
+    {
+        vector<string> fields = fm::parseRecord(record);
+
+        if (fields.size() != 3)
+            continue;
+
+        User user(fields[0], fields[1], fields[2]);
+        users.push_back(user);
+    }
+
+    cout << "Saved accounts loaded: " << users.size() << endl;
+
+    return true;
 }
 
-void registerUser(vector<User>& users)
+// ================= REGISTRATION =================
+
+bool usernameExists(
+    const vector<User>& users,
+    const string& username)
+{
+    for (const User& user : users)
+    {
+        if (user.getUsername() == username)
+            return true;
+    }
+
+    return false;
+}
+
+bool registerUser(vector<User>& users)
 {
     string name;
     string username;
@@ -98,32 +120,46 @@ void registerUser(vector<User>& users)
     if (usernameExists(users, username))
     {
         cout << "Username already exists." << endl;
-        return;
+        return false;
     }
 
     string password = createPassword();
 
-    User newUser(name, username, password);
-    users.push_back(newUser);
-
-    cout << "\nAccount created successfully." << endl;
-}
-
-
-
-bool usernameExists(const vector<User>& users, const string& username)
-{
-    for (const User& user : users)
+    if (password.empty())
     {
-        if (user.getUsername() == username)
-        {
-            return true;
-        }
+        cout << "Password creation failed." << endl;
+        return false;
     }
 
-    return false;
+    string storedHash;
+
+    if (!hashPassword(password, storedHash))
+    {
+        cout << "Password security operation failed." << endl;
+        return false;
+    }
+
+    vector<string> fields;
+
+    fields.push_back(name);
+    fields.push_back(username);
+    fields.push_back(storedHash);
+
+    if (!fm::appendRecord(USER_FILE, fields))
+    {
+        cout << "Unable to save account." << endl;
+        return false;
+    }
+
+    User newUser(name, username, storedHash);
+    users.push_back(newUser);
+
+    cout << "\nAccount created and saved successfully." << endl;
+
+    return true;
 }
 
+// ================= PASSWORD CREATION =================
 
 string createPassword()
 {
@@ -142,17 +178,22 @@ string createPassword()
         cout << "Enter password length: ";
         cin >> length;
 
+        if (length < 8 || length > 128)
+        {
+            cout << "Password length must be between 8 and 128."
+                 << endl;
+            return "";
+        }
+
         return generatePassword(length);
     }
     else if (choice == 2)
     {
         return createManualPassword();
     }
-    else
-    {
-        cout << "Invalid choice." << endl;
-        return "";
-    }
+
+    cout << "Invalid choice." << endl;
+    return "";
 }
 
 string generatePassword(int length)
@@ -185,10 +226,17 @@ string createManualPassword()
 
     displayPasswordStrength(password);
 
+    if (password.length() < 8)
+    {
+        cout << "Password must contain at least 8 characters."
+             << endl;
+        return "";
+    }
+
     return password;
 }
 
-
+// ================= PASSWORD STRENGTH =================
 
 string checkPasswordStrength(const string& password)
 {
@@ -199,11 +247,13 @@ string checkPasswordStrength(const string& password)
 
     for (char ch : password)
     {
-        if (isupper(ch))
+        unsigned char c = static_cast<unsigned char>(ch);
+
+        if (isupper(c))
             hasUpper = true;
-        else if (islower(ch))
+        else if (islower(c))
             hasLower = true;
-        else if (isdigit(ch))
+        else if (isdigit(c))
             hasDigit = true;
         else
             hasSpecial = true;
@@ -211,39 +261,31 @@ string checkPasswordStrength(const string& password)
 
     int score = 0;
 
-    if (password.length() >= 8)
-        score++;
-
-    if (hasUpper)
-        score++;
-
-    if (hasLower)
-        score++;
-
-    if (hasDigit)
-        score++;
-
-    if (hasSpecial)
-        score++;
+    if (password.length() >= 8) score++;
+    if (hasUpper) score++;
+    if (hasLower) score++;
+    if (hasDigit) score++;
+    if (hasSpecial) score++;
 
     if (score <= 2)
         return "Weak";
     else if (score <= 4)
         return "Moderate";
-    else
-        return "Strong";
-}
 
+    return "Strong";
+}
 
 void displayPasswordStrength(const string& password)
 {
-    string strength = checkPasswordStrength(password);
-
-    cout << "Password Strength: " << strength << endl;
+    cout << "Password Strength: "
+         << checkPasswordStrength(password) << endl;
 }
 
+// ================= LOGIN =================
 
-bool loginUser(const vector<User>& users, string& loggedInUsername)
+bool loginUser(
+    const vector<User>& users,
+    string& loggedInUsername)
 {
     string username;
     string password;
@@ -259,12 +301,13 @@ bool loginUser(const vector<User>& users, string& loggedInUsername)
     for (const User& user : users)
     {
         if (user.getUsername() == username &&
-            user.getPassword() == password)
+            verifyPassword(password, user.getPassword()))
         {
             loggedInUsername = username;
 
             cout << "\nLogin successful." << endl;
-            cout << "Welcome back, " << user.getName() << "!" << endl;
+            cout << "Welcome back, "
+                 << user.getName() << "!" << endl;
 
             return true;
         }
@@ -275,6 +318,7 @@ bool loginUser(const vector<User>& users, string& loggedInUsername)
     return false;
 }
 
+// ================= SERVICE SELECTION =================
 
 int chooseService()
 {
@@ -285,16 +329,52 @@ int chooseService()
     cout << "2. Takeaway" << endl;
     cout << "3. Drive-through" << endl;
     cout << "Enter your choice: ";
+
     cin >> choice;
 
-    if (choice >0 && choice <4)
-    {
+    if (choice >= 1 && choice <= 3)
         return choice;
-    }
 
     cout << "Invalid choice." << endl;
+
     return 0;
 }
 
+// ================= MAIN PASSWORD MODULE =================
 
+int runPasswordModule(vector<User>& users)
+{
+    if (!loadUsers(users))
+        return 0;
 
+    int choice;
+    bool loginSuccess = false;
+
+    cout << "\n==== REGISTRATION & PASSWORD ====" << endl;
+    cout << "1. New User" << endl;
+    cout << "2. Existing User" << endl;
+    cout << "Enter your choice: ";
+
+    cin >> choice;
+
+    if (choice == 1)
+    {
+        loginSuccess = registerUser(users);
+    }
+    else if (choice == 2)
+    {
+        string loggedInUsername;
+
+        loginSuccess = loginUser(users, loggedInUsername);
+    }
+    else
+    {
+        cout << "Invalid choice." << endl;
+        return 0;
+    }
+
+    if (loginSuccess)
+        return chooseService();
+
+    return 0;
+}
