@@ -4,26 +4,42 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
-namespace FileManager
+namespace fm
 {
-    // Check whether a file exists
-    bool fileExists(const string& filename);
+    // Record format helpers
+    std::string encodeRecord(const std::vector<std::string>& fields);
+    std::vector<std::string> parseRecord(const std::string& line);
 
-    // Create a file if it does not exist
-    bool createFile(const string& filename);
+    // File existence
+    bool fileExists(const std::string& filePath);
+    bool ensureFileExists(const std::string& filePath);
 
-    // Write data into a file
-    bool writeFile(const string& filename,
-                   const vector<string>& records);
+    // Whole-file operations
+    bool writeAllRecords(const std::string& filePath,
+                         const std::vector<std::string>& records);
 
-    // Append a new record
-    bool appendRecord(const string& filename,
-                      const string& record);
+    bool readAllRecords(const std::string& filePath,
+                        std::vector<std::string>& records);
 
-    // Read all records from a file
-    vector<string> readFile(const string& filename);
+    // Individual record operations
+    bool appendRecord(const std::string& filePath,
+                      const std::vector<std::string>& fields);
+
+    bool updateRecord(const std::string& filePath,
+                      int keyFieldIndex,
+                      const std::string& keyValue,
+                      const std::vector<std::string>& newFields);
+
+    bool deleteRecord(const std::string& filePath,
+                      int keyFieldIndex,
+                      const std::string& keyValue);
+
+    bool searchRecords(const std::string& filePath,
+                       int fieldIndex,
+                       const std::string& keyword,
+                       std::vector<std::string>& results);
+
+    int countRecords(const std::string& filePath);
 }
 
 #endif
