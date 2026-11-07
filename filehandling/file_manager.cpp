@@ -169,9 +169,6 @@ namespace fm
 
         return !file.fail();
     }
-
-    // Read all records from a file.
-    // Read all records from a file.
 bool readAllRecords(
     const string& filePath,
     vector<string>& records)
@@ -284,11 +281,11 @@ bool readAllRecords(
         vector<string> remaining;
         bool found = false;
 
-        for (size_t i = 0; i < records.size(); i++)
+        for (size_t i = 0;i < records.size();i++)
         {
             vector<string> fields = parseRecord(records[i]);
 
-            if (keyFieldIndex < static_cast<int>(fields.size()) &&
+            if (keyFieldIndex<static_cast<int>(fields.size()) &&
                 fields[keyFieldIndex] == keyValue)
             {
                 found = true;
