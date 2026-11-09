@@ -1,6 +1,6 @@
 #include "dining.h"
 #include <iostream>
-
+#include "order.h"
 using namespace std;
 
 int selectDiningLocation()
@@ -86,9 +86,12 @@ int selectDiningCuisine()
 
 
 
-void displayDiningRestaurants(const vector<Restaurant>& restaurants,const vector<Location>& locations)
+void displayDiningRestaurants(
+    const vector<Restaurant>& restaurants,
+    const vector<Location>& locations
+)
 {
-    cout << "\n===== AVAILABLE RESTAURANTS =====" << endl;
+    cout << "\n========== AVAILABLE RESTAURANTS ==========\n";
 
     if (restaurants.empty())
     {
@@ -101,11 +104,16 @@ void displayDiningRestaurants(const vector<Restaurant>& restaurants,const vector
         Location location =
             getLocationById(locations, restaurant.locationId);
 
-        cout << "\nRestaurant: " << restaurant.name << endl;
+        cout << "\nRestaurant ID: " << restaurant.id << endl;
+        cout << "Restaurant: " << restaurant.name << endl;
         cout << "Location: " << location.name << endl;
         cout << "Rating: " << restaurant.rating << endl;
+
         cout << "Preparation Time: "
-             << restaurant.preparationTime << " minutes" << endl;
+             << restaurant.preparationTime
+             << " minutes" << endl;
+
+        cout << "------------------------------------------\n";
     }
 }
 
@@ -411,8 +419,5 @@ void runDiningModule()
         selectedRestaurant,
         locations);
 
-    displayDiningMenu(
-        menus,
-        dishes,
-        restaurantId);
+   runOrderModule(menus, dishes, restaurantId, "Dine-in");
 }

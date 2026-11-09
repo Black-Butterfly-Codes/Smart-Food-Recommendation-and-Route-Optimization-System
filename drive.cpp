@@ -6,7 +6,7 @@
 
 #include "drive.h"
 #include "graph.h"
-
+#include "order.h"
 using namespace std;
 
 // Select customer location
@@ -160,6 +160,8 @@ void displayDriveRecommendations(
 
         cout << "\n" << i + 1 << ". " << restaurant.name;
 
+        cout << "\nRestaurant ID: " << restaurant.id;
+
         cout << "\nLocation: "
              << getLocationById(
                     initializeLocations(),
@@ -176,9 +178,10 @@ void displayDriveRecommendations(
 
         cout << "\nDrive-through Score: "
              << score << "/100\n";
+
+        cout << "------------------------------------------\n";
     }
 }
-
 // Display selected restaurant menu
 void displayDriveMenu(
     const vector<Menu>& menus,
@@ -258,5 +261,5 @@ void runDriveModule()
         return;
     }
 
-    displayDriveMenu(menus, dishes, selected.id);
+    runOrderModule(menus, dishes, selected.id, "Drive-through");
 }

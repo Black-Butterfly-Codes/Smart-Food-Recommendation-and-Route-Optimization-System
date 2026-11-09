@@ -13,19 +13,23 @@ int main()
 {
     vector<User> users;
 
-    int serviceChoice = runPasswordModule(users);
+    int choice = runPasswordModule(users);
 
-    if (serviceChoice == 1)
+    if (choice == 1)
     {
         runDiningModule();
     }
-    else if (serviceChoice == 2)
+    else if (choice == 2)
     {
         runTakeawayModule();
     }
-    else if (serviceChoice == 3)
+    else if (choice == 3)
     {
         runDriveModule();
+    }
+    else
+    {
+        cout << "\nInvalid service selection or login unsuccessful.\n";
     }
 
     return 0;

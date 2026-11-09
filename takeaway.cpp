@@ -6,7 +6,7 @@
 
 #include "takeaway.h"
 #include "graph.h"
-
+#include "order.h"
 using namespace std;
 
 const double AVERAGE_SPEED = 30.0;
@@ -156,10 +156,14 @@ void displayTakeawayRecommendations(
             calculateTakeawayScore(restaurant, travelTime);
 
         cout << "\n" << i + 1 << ". " << restaurant.name;
+
+        cout << "\nRestaurant ID: " << restaurant.id;
+
         cout << "\nLocation: " << getLocationById(
             initializeLocations(), restaurant.locationId).name;
 
         cout << "\nRating: " << restaurant.rating;
+
         cout << "\nDistance: " << fixed << setprecision(2)
              << distance << " km";
 
@@ -171,6 +175,8 @@ void displayTakeawayRecommendations(
 
         cout << "\nTakeaway Score: "
              << score << "/100\n";
+
+        cout << "------------------------------------------\n";
     }
 }
 
@@ -253,5 +259,5 @@ void runTakeawayModule()
         return;
     }
 
-    displayTakeawayMenu(menus, dishes, selected.id);
+    runOrderModule(menus, dishes, selected.id, "Takeaway");
 }
