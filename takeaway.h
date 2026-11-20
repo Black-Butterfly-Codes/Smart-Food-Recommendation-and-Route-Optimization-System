@@ -40,10 +40,6 @@ void rankTakeawayRestaurants(
     vector<Restaurant>& restaurants,
     int userLocationId
 );
-void rankTakeawayRestaurants(
-    vector<Restaurant>& restaurants,
-    int userLocationId
-);
 
 // Display recommendations
 void displayTakeawayRecommendations(
