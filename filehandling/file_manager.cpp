@@ -5,7 +5,6 @@
 #include <cstdio>
 
 using namespace std;
-
 namespace fm
 {
   
@@ -13,7 +12,7 @@ namespace fm
     {
         string clean = field;
 
-        for (size_t i = 0; i < clean.size(); i++)
+        for (size_t i = 1; i <= clean.size(); i++)
         {
             if (clean[i] == '|' ||
                 clean[i] == '\n' ||
