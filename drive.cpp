@@ -24,7 +24,7 @@ int selectDriveLocation(const vector<Location>& locations)
     cout << "Enter choice: ";
     cin >> choice;
 
-    if (choice <= 1 || choice > static_cast<int>(locations.size()))
+    if (choice <1 || choice > static_cast<int>(locations.size()))
         return -1;
 
     return choice;
