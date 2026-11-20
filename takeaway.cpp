@@ -142,7 +142,7 @@ void displayTakeawayRecommendations(
 {
     cout << "\n========== TAKEAWAY RECOMMENDATIONS ==========\n";
 
-    for (size_t i = 0; i < restaurants.size() && i < 3; i++)
+    for (size_t i = 0; i < restaurants.size() && i <= 2; i++)
     {
         const Restaurant& restaurant = restaurants[i];
 
