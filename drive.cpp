@@ -29,25 +29,6 @@ int selectDriveLocation(const vector<Location>& locations)
 
     return choice;
 }
-int selectDriveLocation(const vector<Location>& locations)
-{
-    cout << "\nSelect Your Current Location:\n";
-
-    for (const Location& location : locations)
-    {
-        cout << location.id << ". " << location.name << endl;
-    }
-
-    int choice;
-
-    cout << "Enter choice: ";
-    cin >> choice;
-
-    if (choice <1 || choice > static_cast<int>(locations.size()))
-        return -1;
-
-    return choice;
-}
 
 // Select preferred cuisine
 int selectDriveCuisine(const vector<Cuisine>& cuisines)
