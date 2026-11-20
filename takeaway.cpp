@@ -94,8 +94,6 @@ double calculateTakeawayScore(
 
     double timeScore =
         100.0 / (1.0 + timeDifference);
-    double timeScore =
-        100.0 / (1.0 + timeDifference);
 
     double ratingScore =
         (restaurant.rating / 5.0) * 100.0;
