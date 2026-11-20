@@ -249,7 +249,7 @@ void runDriveModule()
     cout << "\nEnter Restaurant ID to view its menu (0 to exit): ";
     cin >> choice;
 
-    if (choice <1)
+    if (choice ==0)
         return;
 
     Restaurant selected =
