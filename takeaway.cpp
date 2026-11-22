@@ -10,7 +10,6 @@
 using namespace std;
 
 const double AVERAGE_SPEED = 30.0;
-
 // Select customer location
 int selectTakeawayLocation(const vector<Location>& locations)
 {
