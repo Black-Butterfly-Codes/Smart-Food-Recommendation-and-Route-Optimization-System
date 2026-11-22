@@ -214,7 +214,6 @@ void runDriveModule()
     cout << "\n========== SMARTBITE DRIVE-THROUGH ==========\n";
 
     int locationId = selectDriveLocation(locations);
-    int locationId = selectDriveLocation(locations);
 
     if (locationId == -1)
     {
