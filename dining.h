@@ -1,4 +1,8 @@
+#ifndef DINING_H
+#define DINING_H
 
+#include "data.h"
+#include "graph.h"
 
 double calculateDiningDistance(const Graph& graph,int startLocationId,int restaurantLocationId);
 
