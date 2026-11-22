@@ -39,8 +39,6 @@ vector<Restaurant> findDiningRestaurants(
 
     for (const Restaurant& restaurant : restaurants)
     {
-
-
         vector<Restaurant> cuisineRestaurants =
             findRestaurantsByCuisine(
                 vector<Restaurant>{restaurant},
@@ -83,9 +81,6 @@ int selectDiningCuisine()
     return 0;
 }
 
-
-
-
 void displayDiningRestaurants(
     const vector<Restaurant>& restaurants,
     const vector<Location>& locations
@@ -117,9 +112,6 @@ void displayDiningRestaurants(
     }
 }
 
-
-
-
 int selectDiningRestaurant(const vector<Restaurant>& restaurants)
 {
     int choice;
@@ -149,9 +141,6 @@ if (choice >= 1 && choice <= static_cast<int>(restaurants.size()))
     return 0;
 }
 
-
-
-
 void showDiningRestaurantDetails(const Restaurant& restaurant,const vector<Location>& locations)
 {
     Location location =
@@ -172,9 +161,6 @@ void showDiningRestaurantDetails(const Restaurant& restaurant,const vector<Locat
          << restaurant.preparationTime
          << " minutes" << endl;
 }
-
-
-
 
 void displayDiningMenu(
     const vector<Menu>& menus,
