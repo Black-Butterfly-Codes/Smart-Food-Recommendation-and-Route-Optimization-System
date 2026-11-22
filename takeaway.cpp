@@ -258,6 +258,10 @@ void runTakeawayModule()
         cout << "Invalid restaurant selection!\n";
         return;
     }
-
+     if (selected.id == -1)
+    {
+        cout << "Invalid restaurant selection!\n";
+        return;
+    }
     runOrderModule(menus, dishes, selected.id, "Takeaway");
 }
