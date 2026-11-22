@@ -1,6 +1,7 @@
 #include "dining.h"
 #include <iostream>
 #include "order.h"
+#include "utilities/input_validation.h"
 using namespace std;
 
 int selectDiningLocation()
@@ -15,16 +16,13 @@ int selectDiningLocation()
     cout << "4. Prem Nagar" << endl;
     cout << "5. Sahastradhara" << endl;
 
-    cout << "Enter your choice: ";
-    cin >> choice;
-
-    if (choice >0 && choice <6)
+    if (!InputValidation::readIntInRange(
+            "Enter your choice: ", 1, 5, choice))
     {
-        return choice;
+        return 0;
     }
 
-    cout << "Invalid location." << endl;
-    return 0;
+    return choice;
 }
 
 vector<Restaurant> findDiningRestaurants(
@@ -69,16 +67,13 @@ int selectDiningCuisine()
     cout << "5. South Indian" << endl;
     cout << "6. Fast Food" << endl;
 
-    cout << "Enter your choice: ";
-    cin >> choice;
-
-    if (choice >= 1 && choice <= 6)
+    if (!InputValidation::readIntInRange(
+            "Enter your choice: ", 1, 6, choice))
     {
-        return choice;
+        return 0;
     }
 
-    cout << "Invalid cuisine." << endl;
-    return 0;
+    return choice;
 }
 
 void displayDiningRestaurants(
@@ -118,6 +113,7 @@ int selectDiningRestaurant(const vector<Restaurant>& restaurants)
 
     if (restaurants.empty())
     {
+        cout << "No restaurants available for selection." << endl;
         return 0;
     }
 
@@ -129,18 +125,17 @@ int selectDiningRestaurant(const vector<Restaurant>& restaurants)
              << restaurants[i].name << endl;
     }
 
-    cout << "Enter your choice: ";
-    cin >> choice;
-
-if (choice >= 1 && choice <= static_cast<int>(restaurants.size()))
+    if (!InputValidation::readIntInRange(
+            "Enter your choice: ",
+            1,
+            static_cast<int>(restaurants.size()),
+            choice))
     {
-        return restaurants[choice - 1].id;
+        return 0;
     }
 
-    cout << "Invalid restaurant." << endl;
-    return 0;
+    return restaurants[choice - 1].id;
 }
-
 void showDiningRestaurantDetails(const Restaurant& restaurant,const vector<Location>& locations)
 {
     Location location =

@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <iomanip>
 #include <algorithm>
@@ -7,8 +6,9 @@
 #include "drive.h"
 #include "graph.h"
 #include "order.h"
-using namespace std;
+#include "utilities/input_validation.h"
 
+using namespace std;
 // Select customer location
 int selectDriveLocation(const vector<Location>& locations)
 {
@@ -21,15 +21,17 @@ int selectDriveLocation(const vector<Location>& locations)
 
     int choice;
 
-    cout << "Enter choice: ";
-    cin >> choice;
-
-    if (choice <1 || choice > static_cast<int>(locations.size()))
+    if (!InputValidation::readIntInRange(
+            "Enter choice: ",
+            1,
+            static_cast<int>(locations.size()),
+            choice))
+    {
         return -1;
+    }
 
     return choice;
 }
-
 // Select preferred cuisine
 int selectDriveCuisine(const vector<Cuisine>& cuisines)
 {
@@ -42,15 +44,17 @@ int selectDriveCuisine(const vector<Cuisine>& cuisines)
 
     int choice;
 
-    cout << "Enter choice: ";
-    cin >> choice;
-
-    if (choice < 1 || choice > static_cast<int>(cuisines.size()))
+    if (!InputValidation::readIntInRange(
+            "Enter choice: ",
+            1,
+            static_cast<int>(cuisines.size()),
+            choice))
+    {
         return -1;
+    }
 
     return choice;
 }
-
 // Find restaurants offering selected cuisine
 vector<Restaurant> findDriveRestaurants(
     const vector<Restaurant>& restaurants,
@@ -244,12 +248,27 @@ void runDriveModule()
     displayDriveRecommendations(
         filteredRestaurants, locationId);
 
-    int choice;
+         int choice;
+    int maximumRestaurantId = 0;
 
-    cout << "\nEnter Restaurant ID to view its menu (0 to exit): ";
-    cin >> choice;
+    for (const Restaurant& restaurant : filteredRestaurants)
+    {
+        if (restaurant.id > maximumRestaurantId)
+        {
+            maximumRestaurantId = restaurant.id;
+        }
+    }
 
-    if (choice ==0)
+    if (!InputValidation::readIntInRange(
+            "\nEnter Restaurant ID to view its menu (0 to exit): ",
+            0,
+            maximumRestaurantId,
+            choice))
+    {
+        return;
+    }
+
+    if (choice == 0)
         return;
 
     Restaurant selected =
@@ -259,7 +278,4 @@ void runDriveModule()
     {
         cout << "Invalid restaurant selection!\n";
         return;
-    }
-
-    runOrderModule(menus, dishes, selected.id, "Drive-through");
-}
+}    }
