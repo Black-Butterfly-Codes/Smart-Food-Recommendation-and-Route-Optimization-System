@@ -11,8 +11,6 @@ using namespace std;
 
 const string USER_FILE = "data/users.txt";
 
-// ================= USER CLASS =================
-
 User::User()
 {
 }

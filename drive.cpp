@@ -24,7 +24,7 @@ int selectDriveLocation(const vector<Location>& locations)
     cout << "Enter choice: ";
     cin >> choice;
 
-    if (choice < 1 || choice > static_cast<int>(locations.size()))
+    if (choice <1 || choice > static_cast<int>(locations.size()))
         return -1;
 
     return choice;
@@ -249,7 +249,7 @@ void runDriveModule()
     cout << "\nEnter Restaurant ID to view its menu (0 to exit): ";
     cin >> choice;
 
-    if (choice == 0)
+    if (choice ==0)
         return;
 
     Restaurant selected =

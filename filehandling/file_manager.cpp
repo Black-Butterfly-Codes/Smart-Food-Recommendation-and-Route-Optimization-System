@@ -5,7 +5,6 @@
 #include <cstdio>
 
 using namespace std;
-
 namespace fm
 {
   
