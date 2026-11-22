@@ -1,5 +1,6 @@
 #include "password.h"
 #include "password_security.h"
+#include "utilities/input_validation.h"
 #include "filehandling/file_manager.h"
 
 #include <iostream>
@@ -168,32 +169,30 @@ string createPassword()
     cout << "\n===== CREATE PASSWORD =====" << endl;
     cout << "1. Automatic Password" << endl;
     cout << "2. Manual Password" << endl;
-    cout << "Enter your choice: ";
-    cin >> choice;
+
+    if (!InputValidation::readIntInRange(
+            "Enter your choice: ", 1, 2, choice))
+    {
+        return "";
+    }
 
     if (choice == 1)
     {
         int length;
 
-        cout << "Enter password length: ";
-        cin >> length;
-
-        if (length < 8 || length > 128)
+        if (!InputValidation::readIntInRange(
+                "Enter password length (8-128): ",
+                8, 128, length))
         {
-            cout << "Password length must be between 8 and 128."
-                 << endl;
             return "";
         }
 
         return generatePassword(length);
     }
-    else if (choice == 2)
+    else
     {
         return createManualPassword();
     }
-
-    cout << "Invalid choice." << endl;
-    return "";
 }
 
 string generatePassword(int length)
@@ -328,16 +327,14 @@ int chooseService()
     cout << "1. Dining" << endl;
     cout << "2. Takeaway" << endl;
     cout << "3. Drive-through" << endl;
-    cout << "Enter your choice: ";
 
-    cin >> choice;
+    if (!InputValidation::readIntInRange(
+            "Enter your choice: ", 1, 3, choice))
+    {
+        return 0;
+    }
 
-    if (choice >= 1 && choice <= 3)
-        return choice;
-
-    cout << "Invalid choice." << endl;
-
-    return 0;
+    return choice;
 }
 
 // ================= MAIN PASSWORD MODULE =================
@@ -347,15 +344,18 @@ int runPasswordModule(vector<User>& users)
     if (!loadUsers(users))
         return 0;
 
-    int choice;
-    bool loginSuccess = false;
+   int choice;
+bool loginSuccess = false;
 
-    cout << "\n==== REGISTRATION & PASSWORD ====" << endl;
-    cout << "1. New User" << endl;
-    cout << "2. Existing User" << endl;
-    cout << "Enter your choice: ";
+cout << "\n==== REGISTRATION & PASSWORD ====" << endl;
+cout << "1. New User" << endl;
+cout << "2. Existing User" << endl;
 
-    cin >> choice;
+if (!InputValidation::readIntInRange(
+        "Enter your choice: ", 1, 2, choice))
+{
+    return 0;
+}
 
     if (choice == 1)
     {

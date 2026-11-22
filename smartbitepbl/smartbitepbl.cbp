@@ -51,11 +51,15 @@
 		<Unit filename="../main.cpp" />
 		<Unit filename="../password.cpp" />
 		<Unit filename="../password.h" />
+		<Unit filename="../password_security.cpp" />
 		<Unit filename="../takeaway.cpp" />
 		<Unit filename="../takeaway.h" />
+		<Unit filename="../utilities/input_validation.cpp" />
+		<Unit filename="../utilities/input_validation.h" />
 		<Unit filename="data.cpp" />
 		<Unit filename="data.h" />
-		<Unit filename="../password_security.cpp" />
+		<Unit filename="order.cpp" />
+		<Unit filename="order.h" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>
