@@ -196,6 +196,66 @@ double calculateDiningDistance(const Graph& graph,int startLocationId,int restau
 {
     return graph.shortestDistance(startLocationId,restaurantLocationId);
 }
+double calculateDiningScore(double distance,double rating)
+{
+    double distanceScore = 100.0 / (1.0 + distance);
+
+    double ratingScore = (rating / 5.0) * 100.0;
+
+    double finalScore =
+        (distanceScore * 0.60) +
+        (ratingScore * 0.40);
+
+    return finalScore;
+}
+
+vector<Restaurant> rankDiningRestaurants(
+    const vector<Restaurant>& restaurants,
+    const Graph& graph,
+    int startLocationId)
+{
+    vector<Restaurant> rankedRestaurants = restaurants;
+
+for (size_t i = 0; i + 1 < rankedRestaurants.size(); i++)
+    {
+        size_t bestIndex = i;
+        double bestDistance = calculateDiningDistance(
+            graph,
+            startLocationId,
+            rankedRestaurants[bestIndex].locationId);
+
+        double bestScore = calculateDiningScore(
+            bestDistance,
+            rankedRestaurants[bestIndex].rating);
+
+       for (size_t j = i + 1; j < rankedRestaurants.size(); j++)
+        {
+            double distance = calculateDiningDistance(
+                graph,
+                startLocationId,
+                rankedRestaurants[j].locationId);
+
+            double score = calculateDiningScore(
+                distance,
+                rankedRestaurants[j].rating);
+
+            if (score > bestScore)
+            {
+                bestIndex = j;
+                bestScore = score;
+            }
+        }
+
+        if (bestIndex != i)
+        {
+            Restaurant temp = rankedRestaurants[i];
+            rankedRestaurants[i] = rankedRestaurants[bestIndex];
+            rankedRestaurants[bestIndex] = temp;
+        }
+    }
+
+    return rankedRestaurants;
+}
 
 
 void displayDiningRecommendations(
