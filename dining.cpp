@@ -391,14 +391,4 @@ void runDiningModule()
         return;
     }
 
-    Restaurant selectedRestaurant =
-        getRestaurantById(
-            restaurants,
-            restaurantId);
-
-    showDiningRestaurantDetails(
-        selectedRestaurant,
-        locations);
-
-   runOrderModule(menus, dishes, restaurantId, "Dine-in");
-}
+    
